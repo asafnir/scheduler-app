@@ -10,7 +10,7 @@ const config = require('../webpack.config.js');
 const fs = require('fs');
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
-
+const MONGODB_URI = "mongodb://localhost:27017/scheduler-app"
 var routesConfig = require('./config/routes');
 
 /**
@@ -33,7 +33,8 @@ routesConfig(app);
 /**
  * Connect to MongoDB.
  */
-mongoose.connect("mongodb://localhost:27017/scheduler-app");
+
+mongoose.connect(isDeveloping ? MONGODB_URI : process.env.MONGODB_URI);
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
