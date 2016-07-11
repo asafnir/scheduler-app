@@ -9,8 +9,8 @@ var fromTime = new Date();
 function setIntervalForTask(model, task, callback){
   var interval = getTimeInMs(task.start);
   // console.log(moment().duration(now.diff(task.start)));
-  setInterval(function() {
-    markTaskAsDone(model, task.id);
+  var taskInterval = setInterval(function() {
+    markTaskAsDone(model, task.id, this);
     callback(task);
   }, interval);
 }
@@ -20,7 +20,8 @@ function getTimeInMs(date) {
   var differenceTravel = Math.floor(toTime.getTime() - fromTime.getTime());
   return differenceTravel
 }
-function markTaskAsDone(records, id) {
+function markTaskAsDone(records, id, interval) {
+  clearInterval(interval)
   records.findById(id, function(err, record) {
     if (err) throw err;
     record.done = true;
