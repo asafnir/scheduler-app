@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
-    "start": "node server"
+    "start": "node server",
+    "build": "webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "author": "",
   "license": "ISC",

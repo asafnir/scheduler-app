@@ -62,9 +62,11 @@ if (isDeveloping) {
     res.end();
   });
 } else {
-  app.use(express.static(__dirname + '/dist'));
+  const indexPath = path.join(__dirname, '/../index.html')
+  const publicPath = express.static(path.join(__dirname, '../public'))
+  app.use('/public', publicPath);
   app.get('*', function response(req, res) {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+    res.sendFile(indexPath);
   });
 }
 
