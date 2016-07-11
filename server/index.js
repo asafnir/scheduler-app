@@ -14,9 +14,9 @@ const port = isDeveloping ? 3000 : process.env.PORT;
 var routesConfig = require('./config/routes');
 
 /**
- * Load environment variables from .env file, where API keys and passwords are configured.
+ * Load environment variables from .env file
  */
-dotenv.load({ path: '.env' });
+// dotenv.load({ path: '.env' });
 
 /**
 * Create Express server.
