@@ -10,7 +10,6 @@ exports.create = function(req, res){
       return res.status(500).send('Something went wrong');
     }
     var now = new Date();
-    console.log(now, event.start);
     Scheduler.schedulerTask(Event, event, now,function(response){
       console.log(response);
       io.emit('event done', { res: response });

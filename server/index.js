@@ -64,6 +64,13 @@ if (isDeveloping) {
     res.end();
   });
 } else {
+  const prodConfig = require('../webpack.prod.config.js');
+  const prodCompiler = webpack(prodConfig);
+  app.use(require('webpack-hot-middleware')(prodCompiler, {
+    log: console.log,
+    path: '/__webpack_hmr',
+    heartbeat: 10 * 1000
+  }));
   const indexPath = path.join(__dirname, '../public/index.html')
   const publicPath = express.static(path.join(__dirname, '../public'))
   app.use('/public', publicPath);

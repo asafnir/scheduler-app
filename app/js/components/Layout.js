@@ -37,7 +37,7 @@ export default class Layout extends React.Component {
             action='Dismiss'
             active={this.state.active}
             icon='question_answer'
-            timeout={8000}
+            timeout={30000}
             label={this.state.task + ' Just run and finish successfully'}
             onClick={this.handleSnackbarClick}
             onTimeout={this.handleSnackbarClick}

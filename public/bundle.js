@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "313613c33a237c6e34c5"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a0e5d629f0869dfa8f61"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -53836,7 +53836,7 @@
 	          action: "Dismiss",
 	          active: this.state.active,
 	          icon: "question_answer",
-	          timeout: 8000,
+	          timeout: 30000,
 	          label: this.state.task + ' Just run and finish successfully',
 	          onClick: this.handleSnackbarClick,
 	          onTimeout: this.handleSnackbarClick,
