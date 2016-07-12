@@ -10,10 +10,18 @@ const EventModel = {
 export default class EventsTable extends React.Component {
   state = { events: [] };
 
+  constructor(props) {
+    super(props);
+    this.loadEventsFromServer = this.loadEventsFromServer.bind(this);
+  }
+
+
   loadEventsFromServer(){
-    $.get('events',  (result) => {
-      this.setState({events: result});
-    });
+    $.get('events', function (result) {
+      this.setState({
+        events: result
+      });
+    }.bind(this));
   }
 
   getInitialState(){

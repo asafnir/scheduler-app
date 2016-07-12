@@ -1,7 +1,6 @@
 import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
-import Button from 'react-toolbox/lib/Button';
-import Dialog from 'react-toolbox/lib/dialog';
+import {Button, Dialog} from 'react-toolbox';
 import EventsForm from './EventForm'
 
 export default class Header extends React.Component {

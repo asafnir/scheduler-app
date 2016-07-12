@@ -10,6 +10,7 @@ function setIntervalForTask(model, task, callback){
   var interval = getTimeInMs(task.start);
   // console.log(moment().duration(now.diff(task.start)));
   var taskInterval = setInterval(function() {
+    console.log("Task interval finish");
     markTaskAsDone(model, task.id, this);
     callback(task);
   }, interval);

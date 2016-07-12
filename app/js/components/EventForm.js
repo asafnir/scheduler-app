@@ -9,7 +9,7 @@ const min_datetime = new Date();
 let time = new Date();
 
 export default class EventsForm extends React.Component {
-  state = {time: time, date: datetime, name: '', time_error: ''};
+  state = {time: time, date: datetime, name: '', time_error: '', name_error: ''};
 
   handleNameChange = (name, value) => {
     this.setState({name: value});
@@ -26,7 +26,10 @@ export default class EventsForm extends React.Component {
   handleSubmit = () => {
     var now = new Date();
     this.setState({date: datetime.setTime(time.getTime())})
-    console.log(now, this.state.time);
+    if (this.state.name == ''){
+      this.setState({time_error: 'Do not forget to enter the name of the task'});
+      return this.setState({date: this.state.date});
+    }
     if(now > this.state.time) {
       this.setState({time_error: 'Time no vaild'});
       return this.setState({date: this.state.date});
@@ -39,7 +42,7 @@ export default class EventsForm extends React.Component {
   render() {
     return (
       <div>
-        <Input type='text' label='Name' name='name' value={this.state.name} onChange={this.handleNameChange.bind(this, 'name')}/>
+        <Input type='text' error={this.state.name_error} label='Name' name='name' value={this.state.name} onChange={this.handleNameChange.bind(this, 'name')}/>
         <DatePicker minDate={min_datetime} label='Pick a Date' onChange={this.handleDateChange.bind(this, 'date')} value={this.state.date} />
         <TimePicker error={this.state.time_error} label='Finishing time' onChange={this.handleTimeChange} value={this.state.time}/>
         <Button icon='send' label='Create Task' onClick={this.handleSubmit} raised primary />
