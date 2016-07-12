@@ -1,10 +1,12 @@
 import Table from 'react-toolbox/lib/table';
 import React from "react";
+var moment = require('moment');
 
 const EventModel = {
   name: {type: String},
-  start: {type: Date},
-  done: {type: String}
+  start: {type: String},
+  done: {type: String},
+  created: {type: String}
 };
 
 export default class EventsTable extends React.Component {
@@ -18,6 +20,11 @@ export default class EventsTable extends React.Component {
 
   loadEventsFromServer(){
     $.get('events', function (result) {
+      for (var index in result) {
+        event = result[index];
+        event.start = moment(event.start).format("MMMM Do YYYY, h:mm");
+        event.created = moment(event.created).format("MMMM Do YYYY, h:mm");
+      }
       this.setState({
         events: result
       });

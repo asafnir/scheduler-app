@@ -5,36 +5,50 @@ var moment = require('moment');
 var Scheduler = require('../server/lib/scheduler');
 var sinon = require('sinon');
 
+Date.prototype.addMinutes = function(minutes) {
+    var copiedDate = new Date(this.getTime());
+    return new Date(copiedDate.getTime() + minutes * 60000);
+}
 
 mongoose.connect("mongodb://localhost:27017/scheduler-test");
 
 describe('scheduler', function() {
   var clock;
   var minuteToAdd = 4;
-  var time = moment().add(minuteToAdd, 'minute').format();
+  var now = new Date();
+  var time = now.addMinutes(minuteToAdd)
   var data = {name: 'Move this', start: time}
   var event = new Event(data)
-  var interval = Scheduler.getTimeInMs(time)
+  var interval = Scheduler.getTimeInMs(time, now)
 
-  before(function () {
-    clock = sinon.useFakeTimers();
+  before(function (done) {
     event.save()
+    done();
   });
 
-  after(function () { clock.restore(); });
+  beforeEach(function (done) {
+    clock = sinon.useFakeTimers();
+    done();
+  })
 
-  it('Should return time in ms', function(){
-      assert.equal(Math.floor(interval/1000), (minuteToAdd * 60) - 1);
+  afterEach(function (done) {
+    clock.restore();
+    done();
   });
 
-  it('Should run the task in the giving time', function(){
+  it('Should return time in ms', function(done){
+      assert.equal(Math.floor(interval/1000), (minuteToAdd * 60));
+      done();
+  });
+
+  it('Should run the task in the giving time', function(done){
     var task;
-    Scheduler.schedulerTask(Event, event, function(response){
+    Scheduler.schedulerTask(Event, event, now, function(response){
       task = response;
     });
-    console.log(interval);
     clock.tick(interval + (minuteToAdd*1000)+1);
     assert.equal(event.name, task.name);
+    done();
   });
 
   it('should change done to true', function(done) {

@@ -9,11 +9,11 @@ exports.create = function(req, res){
       console.log('Error create event');
       return res.status(500).send('Something went wrong');
     }
-    Scheduler.schedulerTask(Event, event, function(response){
+    var now = new Date();
+    console.log(now, event.start);
+    Scheduler.schedulerTask(Event, event, now,function(response){
       console.log(response);
-      io.on('connection', function (socket) {
-        socket.emit('event done', { res: response });
-      });
+      io.emit('event done', { res: response });
     });
     res.json(event);
   });

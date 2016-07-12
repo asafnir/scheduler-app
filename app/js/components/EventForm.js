@@ -19,13 +19,13 @@ export default class EventsForm extends React.Component {
     this.setState({date: value});
   };
 
-  handleTimeChange = (item, time) => {
-    this.setState({time: item});
+  handleTimeChange = (time) => {
+    this.setState({time});
   };
 
   handleSubmit = () => {
     var now = new Date();
-    this.setState({date: datetime.setTime(time.getTime())})
+    this.setState({date: datetime.setTime(this.state.time.getTime())})
     if (this.state.name == ''){
       this.setState({time_error: 'Do not forget to enter the name of the task'});
       return this.setState({date: this.state.date});

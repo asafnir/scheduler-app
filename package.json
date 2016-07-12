@@ -40,6 +40,7 @@
     "react": "15.2.1",
     "react-addons-css-transition-group": "15.2.1",
     "react-bootstrap": "0.29.5",
+    "react-bootstrap-table": "2.3.7",
     "react-dom": "15.2.1",
     "react-router": "2.5.2",
     "react-toolbox": "1.0.2",

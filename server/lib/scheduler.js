@@ -4,21 +4,19 @@ var _ = require("underscore")
 var async = require("async")
 var mongoose = require('mongoose');
 var moment = require('moment');
-var fromTime = new Date();
 
-function setIntervalForTask(model, task, callback){
-  var interval = getTimeInMs(task.start);
+function setIntervalForTask(model, task, from, callback){
+
+  var interval = getTimeInMs(task.start, from);
   // console.log(moment().duration(now.diff(task.start)));
   var taskInterval = setInterval(function() {
-    console.log("Task interval finish");
     markTaskAsDone(model, task.id, this);
     callback(task);
   }, interval);
 }
 
-function getTimeInMs(date) {
-  var toTime = new Date(date);
-  var differenceTravel = Math.floor(toTime.getTime() - fromTime.getTime());
+function getTimeInMs(date, from) {
+  var differenceTravel = Math.floor(date.getTime() - from.getTime());
   return differenceTravel
 }
 function markTaskAsDone(records, id, interval) {

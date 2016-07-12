@@ -8,13 +8,13 @@ const socket = io();
 
 export default class Layout extends React.Component {
   state = {active: false, task: ''}
-
   getInitialState() { return {active: false, task: ''} }
 
   componentDidMount() {
     socket.on('event done',  (data) => {
       this.setState({ active: true, task: data.res.name });
       console.log(data);
+      socket.emit('reported');
     });
   }
 
